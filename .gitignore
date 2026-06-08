@@ -1,0 +1,114 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+
+.cache/
+.tools/
+dist/
+coverage/
+*.tsbuildinfo
+artifacts/private/
+infra/secrets/
+
+# Python virtual environments, packaging output, type/test tooling
+.tox/
+.nox/
+.hypothesis/
+.pyre/
+.pytype/
+.pyre_configuration.local
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.egg-info/
+*.egg
+*.whl
+build/
+site/
+pip-wheel-metadata/
+__pypackages__/
+
+# JavaScript package-manager, bundler, and browser-test output
+.pnpm-store/
+.npm/
+.yarn/
+.pnp.*
+.parcel-cache/
+.vite/
+.turbo/
+.next/
+.nuxt/
+.svelte-kit/
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Local process output and temporary files
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.bak
+*.tmp
+*.temp
+*.swp
+*.swo
+*.orig
+tmp/
+temp/
+
+# Local credentials, certificates, and database files
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.jks
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE and operating-system workspace state
+.idea/
+.vscode/
+*.code-workspace
+Thumbs.db
+Desktop.ini
+
+# Generated browser recordings are not documentation. Curated portfolio media
+# in docs/12-portfolio/media/ remains intentionally version-controlled.
+docs/12-portfolio/media/.recordings/
+
+# Private engineering-workflow material. These files are useful while building
+# the project, but are not part of the public project narrative or release docs.
+AGENTS.md
+PROGRESS.md
+tasks/
+docs/11-implementation-plan/
+docs/12-portfolio/presentation.md
+
+# Assistant-generated planning and private workflow notes
+AGENT.md
+AGENTS.md
+CLAUDE.md
+CODEX.md
+COMMIT_PLAN.md
+PROGRESS.md
+**/*_PLAN*.md
+**/*_plan*.md
+**/*_PROGRESS*.md
+**/*_progress*.md
+docs/10-testing/
+docs/11-implementation-plan/
+docs/12-portfolio/presentation.md

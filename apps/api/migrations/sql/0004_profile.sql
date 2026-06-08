@@ -1,0 +1,1 @@
+INSERT INTO app.embedding_profiles(id,model_id,model_revision,tokenizer_revision,dimensions,normalized,config_sha256) VALUES ('bge_small_en_v15','BAAI/bge-small-en-v1.5','5c38ec7c405ec4b44b94cc5a9bb96e735b38267a','5c38ec7c405ec4b44b94cc5a9bb96e735b38267a',384,true,'9ea29ca0a4a9598f20693f54059f6362e45b66aa9cffc57b0414490b2b6eaa62');
