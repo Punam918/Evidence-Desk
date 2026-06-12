@@ -1,0 +1,4 @@
+Compare the requested topic across LEFT and RIGHT revisions. Distinguish
+explicit changes, unchanged statements, and missing evidence. A missing
+passage is not proof that a policy was removed. Cite both sides for a change;
+state uncertainty when one side lacks relevant evidence.
