@@ -1,0 +1,266 @@
+[
+  {
+    "name": "pypi:fastapi",
+    "version": "0.143.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-08T12:29:44.853354Z",
+    "source": "https://pypi.org/pypi/fastapi/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:pydantic",
+    "version": "2.14.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-08T14:34:46.864517Z",
+    "source": "https://pypi.org/pypi/pydantic/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:sqlalchemy",
+    "version": "2.1.4",
+    "requires_python": ">=3.11",
+    "published_at": "2026-10-07T18:17:21.503212Z",
+    "source": "https://pypi.org/pypi/sqlalchemy/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:alembic",
+    "version": "1.20.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-09-11T19:09:12.880981Z",
+    "source": "https://pypi.org/pypi/alembic/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:uv",
+    "version": "0.13.0",
+    "requires_python": ">=3.8",
+    "published_at": "2026-10-09T19:45:18.048001Z",
+    "source": "https://pypi.org/pypi/uv/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:langgraph",
+    "version": "1.2.14",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-06T14:41:18.129073Z",
+    "source": "https://pypi.org/pypi/langgraph/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:langgraph-checkpoint-postgres",
+    "version": "3.1.2",
+    "requires_python": ">=3.10",
+    "published_at": "2026-08-07T20:39:58.994834Z",
+    "source": "https://pypi.org/pypi/langgraph-checkpoint-postgres/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:qdrant-client",
+    "version": "1.19.1",
+    "requires_python": ">=3.10",
+    "published_at": "2026-09-16T06:43:12.428811Z",
+    "source": "https://pypi.org/pypi/qdrant-client/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:fastembed",
+    "version": "0.9.0",
+    "requires_python": ">=3.10.0",
+    "published_at": "2026-10-07T16:38:49.150256Z",
+    "source": "https://pypi.org/pypi/fastembed/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:psycopg",
+    "version": "3.3.6",
+    "requires_python": ">=3.10",
+    "published_at": "2026-09-18T13:15:29.374570Z",
+    "source": "https://pypi.org/pypi/psycopg/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:sentence-transformers",
+    "version": "6.1.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-09-18T10:44:22.841108Z",
+    "source": "https://pypi.org/pypi/sentence-transformers/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:openai",
+    "version": "3.28.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-09T20:50:12.282405Z",
+    "source": "https://pypi.org/pypi/openai/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:httpx",
+    "version": "0.28.1",
+    "requires_python": ">=3.8",
+    "published_at": "2024-12-06T15:37:21.509172Z",
+    "source": "https://pypi.org/pypi/httpx/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:pytest",
+    "version": "9.1.1",
+    "requires_python": ">=3.10",
+    "published_at": "2026-06-19T10:58:31.347074Z",
+    "source": "https://pypi.org/pypi/pytest/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:ruff",
+    "version": "0.17.0",
+    "requires_python": ">=3.7",
+    "published_at": "2026-10-09T19:46:38.695158Z",
+    "source": "https://pypi.org/pypi/ruff/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:opentelemetry-sdk",
+    "version": "1.45.1",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-06T17:32:55.040419Z",
+    "source": "https://pypi.org/pypi/opentelemetry-sdk/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:pypdf",
+    "version": "6.20.0",
+    "requires_python": ">=3.9",
+    "published_at": "2026-10-09T10:49:36.882910Z",
+    "source": "https://pypi.org/pypi/pypdf/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:authlib",
+    "version": "1.8.0",
+    "requires_python": ">=3.10",
+    "published_at": "2026-08-30T12:12:33.162089Z",
+    "source": "https://pypi.org/pypi/authlib/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "pypi:boto3",
+    "version": "1.43.111",
+    "requires_python": ">=3.10",
+    "published_at": "2026-10-09T19:27:47.599851Z",
+    "source": "https://pypi.org/pypi/boto3/json",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:react",
+    "version": "19.3.0",
+    "published_at": "2026-09-09T17:21:30.071Z",
+    "engines": {
+      "node": ">=0.10.0"
+    },
+    "source": "https://registry.npmjs.org/react",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:vite",
+    "version": "8.3.4",
+    "published_at": "2026-10-08T12:07:04.441Z",
+    "engines": {
+      "node": "^20.19.0 || >=22.12.0"
+    },
+    "source": "https://registry.npmjs.org/vite",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:typescript",
+    "version": "7.0.2",
+    "published_at": "2026-07-08T15:55:18.431Z",
+    "engines": {
+      "node": ">=16.20.0"
+    },
+    "source": "https://registry.npmjs.org/typescript",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:@tanstack/react-query",
+    "version": "5.104.1",
+    "published_at": "2026-10-02T10:04:57.020Z",
+    "engines": {},
+    "source": "https://registry.npmjs.org/@tanstack/react-query",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:react-router",
+    "version": "8.4.0",
+    "published_at": "2026-09-15T15:23:42.214Z",
+    "engines": {
+      "node": ">=22.22.0"
+    },
+    "source": "https://registry.npmjs.org/react-router",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:vitest",
+    "version": "5.0.3",
+    "published_at": "2026-09-30T11:30:42.429Z",
+    "engines": {
+      "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+    },
+    "source": "https://registry.npmjs.org/vitest",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:@playwright/test",
+    "version": "1.64.0",
+    "published_at": "2026-10-07T20:44:27.702Z",
+    "engines": {
+      "node": ">=20"
+    },
+    "source": "https://registry.npmjs.org/@playwright/test",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "npm:openapi-typescript",
+    "version": "7.13.0",
+    "published_at": "2026-02-11T16:02:25.378Z",
+    "engines": {},
+    "source": "https://registry.npmjs.org/openapi-typescript",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  },
+  {
+    "name": "github:qdrant/qdrant",
+    "version": "v1.19.2",
+    "published_at": "2026-10-05T14:16:50Z",
+    "release_url": "https://github.com/qdrant/qdrant/releases/tag/v1.19.2",
+    "source": "https://api.github.com/repos/qdrant/qdrant/releases/latest",
+    "observed_on": "2026-10-10",
+    "status": "observed_not_integration_tested"
+  }
+]

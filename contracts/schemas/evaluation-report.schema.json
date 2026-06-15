@@ -1,0 +1,175 @@
+{
+  "$defs": {
+    "Metric": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/+ -]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "n": {
+          "minimum": 0,
+          "title": "N",
+          "type": "integer"
+        },
+        "ci_low": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ci Low"
+        },
+        "ci_high": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ci High"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "n",
+        "ci_low",
+        "ci_high"
+      ],
+      "title": "Metric",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dataset_version": {
+      "maxLength": 120,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+      "title": "Dataset Version",
+      "type": "string"
+    },
+    "dataset_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Dataset Sha256",
+      "type": "string"
+    },
+    "config_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "git_sha": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{40}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Git Sha"
+    },
+    "variant": {
+      "maxLength": 80,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/+ -]*$",
+      "title": "Variant",
+      "type": "string"
+    },
+    "model_key": {
+      "maxLength": 80,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/+ -]*$",
+      "title": "Model Key",
+      "type": "string"
+    },
+    "hardware": {
+      "maxLength": 300,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/+ ()-]*$",
+      "title": "Hardware",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "case_count": {
+      "minimum": 1,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/Metric"
+      },
+      "maxItems": 100,
+      "title": "Metrics",
+      "type": "array"
+    },
+    "artifact_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Artifact Sha256",
+      "type": "string"
+    },
+    "source_snapshot_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Snapshot Sha256",
+      "type": "string"
+    },
+    "evidence_scope": {
+      "enum": [
+        "draft_diagnostic",
+        "reviewed_benchmark",
+        "operational"
+      ],
+      "title": "Evidence Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_version",
+    "dataset_sha256",
+    "config_sha256",
+    "git_sha",
+    "variant",
+    "model_key",
+    "hardware",
+    "status",
+    "case_count",
+    "metrics",
+    "artifact_sha256",
+    "source_snapshot_sha256",
+    "evidence_scope"
+  ],
+  "title": "EvaluationInput",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencedesk.invalid/schemas/evaluation-report.schema.json"
+}

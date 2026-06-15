@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "search_knowledge"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "kb_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 10,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "query",
+            "kb_ids",
+            "limit"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "arguments"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "read_passages"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "chunk_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 8,
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "chunk_ids"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "arguments"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "compare_revisions"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "left_revision_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "right_revision_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "focus": {
+              "type": "string",
+              "maxLength": 2000
+            }
+          },
+          "required": [
+            "left_revision_id",
+            "right_revision_id",
+            "focus"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "arguments"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "save_brief"
+        },
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "answer_message_id": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "required": [
+            "title",
+            "answer_message_id"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "arguments"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+[
+  {
+    "id": "R01",
+    "title": "OpenAI structured outputs",
+    "url": "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Provider schema support has limits; handle refusals and incomplete responses."
+  },
+  {
+    "id": "R02",
+    "title": "OpenAI streaming",
+    "url": "https://developers.openai.com/api/docs/guides/streaming-responses",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Responses emits typed stream events."
+  },
+  {
+    "id": "R03",
+    "title": "OpenAI pricing",
+    "url": "https://developers.openai.com/api/docs/pricing",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Standard short-context Luna input/output: $0.10/$0.50 per million tokens; Sol 6.1: $2/$10. Verify at deployment."
+  },
+  {
+    "id": "R04",
+    "title": "GPT-4.1 mini",
+    "url": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Dated snapshot 2025-04-14; listed input/output $0.40/$1.60 per million tokens."
+  },
+  {
+    "id": "R05",
+    "title": "GPT-6 Luna",
+    "url": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Current candidate; no account access or quality validated in this work."
+  },
+  {
+    "id": "R06",
+    "title": "Claude model catalog",
+    "url": "https://platform.claude.com/docs/en/models/overview",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Catalog lists Sonnet 5.5 and $2/$10 input/output per million tokens; availability is account-specific."
+  },
+  {
+    "id": "R07",
+    "title": "Claude structured outputs",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "JSON output and tool schema controls require provider-specific adaptation."
+  },
+  {
+    "id": "R08",
+    "title": "Gemini structured output",
+    "url": "https://ai.google.dev/gemini-api/docs/structured-output",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Supported JSON Schema subset requires application validation."
+  },
+  {
+    "id": "R09",
+    "title": "Gemini pricing",
+    "url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "2.5 Flash text input $0.30 and output $2.50 per million tokens, including thinking output."
+  },
+  {
+    "id": "R10",
+    "title": "pgvector",
+    "url": "https://github.com/pgvector/pgvector",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "0.8.7 image tags listed; filtered approximate search can under-return; iterative scans available since 0.8.0."
+  },
+  {
+    "id": "R11",
+    "title": "PostgreSQL text search",
+    "url": "https://www.postgresql.org/docs/current/textsearch-controls.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "ts_rank and ts_rank_cd rank full-text matches; do not call these BM25."
+  },
+  {
+    "id": "R12",
+    "title": "PostgreSQL row security",
+    "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Owners normally bypass policies; FORCE and runtime roles matter."
+  },
+  {
+    "id": "R13",
+    "title": "PostgreSQL queue locking",
+    "url": "https://www.postgresql.org/docs/17/sql-select.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "SKIP LOCKED supports queue-like consumers; not a general consistent-view mechanism."
+  },
+  {
+    "id": "R14",
+    "title": "PostgreSQL support",
+    "url": "https://www.postgresql.org/support/versioning/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Major support lifecycle informs supported baseline selection."
+  },
+  {
+    "id": "R15",
+    "title": "Qdrant multitenancy",
+    "url": "https://qdrant.tech/documentation/manage-data/multitenancy/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Payload tenant filters and partitioning options; application still owns authorization."
+  },
+  {
+    "id": "R16",
+    "title": "Weaviate multitenancy",
+    "url": "https://docs.weaviate.io/weaviate/manage-collections/multi-tenancy",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Tenant-aware collection operations and tenant lifecycle."
+  },
+  {
+    "id": "R17",
+    "title": "Milvus multitenancy",
+    "url": "https://milvus.io/docs/multi_tenancy.md",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Several isolation levels with different scale tradeoffs."
+  },
+  {
+    "id": "R18",
+    "title": "OpenSearch hybrid",
+    "url": "https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Hybrid search combines lexical and neural results through search pipelines."
+  },
+  {
+    "id": "R19",
+    "title": "Elasticsearch similarity",
+    "url": "https://www.elastic.co/docs/reference/elasticsearch/index-settings/similarity",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "BM25 similarity is available; useful external lexical baseline."
+  },
+  {
+    "id": "R20",
+    "title": "FastAPI concurrency",
+    "url": "https://fastapi.tiangolo.com/async/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Async I/O does not turn CPU parsing/inference into nonblocking work."
+  },
+  {
+    "id": "R21",
+    "title": "FastAPI releases",
+    "url": "https://fastapi.tiangolo.com/release-notes/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Resolve and test dependency pins at foundation gate."
+  },
+  {
+    "id": "R22",
+    "title": "Django REST Framework",
+    "url": "https://www.django-rest-framework.org/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Mature API/auth/serialization ecosystem; candidate for CRUD-heavy product."
+  },
+  {
+    "id": "R23",
+    "title": "NestJS",
+    "url": "https://docs.nestjs.com/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "TypeScript server framework; Python inference would introduce another language boundary."
+  },
+  {
+    "id": "R24",
+    "title": "LangGraph",
+    "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Durable stateful graph orchestration; justified by complex workflow recovery."
+  },
+  {
+    "id": "R25",
+    "title": "LlamaIndex",
+    "url": "https://developers.llamaindex.ai/python/framework/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Data/retrieval connectors and workflow ecosystem."
+  },
+  {
+    "id": "R26",
+    "title": "Haystack pipelines",
+    "url": "https://docs.haystack.deepset.ai/docs/pipelines",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Explicit component pipelines with branching/loops."
+  },
+  {
+    "id": "R27",
+    "title": "vLLM serving",
+    "url": "https://docs.vllm.ai/en/latest/serving/online_serving/openai_compatible_server/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Compatible API is not universal parameter parity; chat templates matter."
+  },
+  {
+    "id": "R28",
+    "title": "Ollama compatibility",
+    "url": "https://docs.ollama.com/api/openai-compatibility",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Useful local serving; supported endpoints/parameters must be tested."
+  },
+  {
+    "id": "R29",
+    "title": "llama.cpp",
+    "url": "https://github.com/ggml-org/llama.cpp",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Quantized inference across CPU/GPU backends; operational alternative."
+  },
+  {
+    "id": "R30",
+    "title": "BGE small English",
+    "url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "384 dimensions, 512-token sequence; query instruction and normalization are documented."
+  },
+  {
+    "id": "R31",
+    "title": "MiniLM reranker",
+    "url": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Cross-encoder candidate for bounded reranking; published benchmarks are not project results."
+  },
+  {
+    "id": "R32",
+    "title": "Qwen3 8B",
+    "url": "https://huggingface.co/Qwen/Qwen3-8B",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "8.2B parameters; native 32768 context; non-thinking mode is supported."
+  },
+  {
+    "id": "R33",
+    "title": "Llama 3.1 8B",
+    "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Alternative open-weight instruction model with its own license terms."
+  },
+  {
+    "id": "R34",
+    "title": "Mistral Small 3.1",
+    "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "24B alternative has larger resource needs than 8B baseline."
+  },
+  {
+    "id": "R35",
+    "title": "BGE M3",
+    "url": "https://huggingface.co/BAAI/bge-m3",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Multilingual and multiple retrieval representations; heavier candidate."
+  },
+  {
+    "id": "R36",
+    "title": "Ragas metrics",
+    "url": "https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Retrieval/generation/tool metrics; judge-based scores need human calibration."
+  },
+  {
+    "id": "R37",
+    "title": "DeepEval",
+    "url": "https://deepeval.com/docs/getting-started",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Test-oriented LLM evaluation alternative."
+  },
+  {
+    "id": "R38",
+    "title": "Promptfoo",
+    "url": "https://www.promptfoo.dev/docs/intro/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Prompt/provider test matrices and regression workflows."
+  },
+  {
+    "id": "R39",
+    "title": "Langfuse self-host",
+    "url": "https://langfuse.com/self-hosting",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "LLM tracing platform; full self-hosting adds infrastructure."
+  },
+  {
+    "id": "R40",
+    "title": "OpenTelemetry GenAI",
+    "url": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "GenAI conventions evolve; pin instrumentation semantics."
+  },
+  {
+    "id": "R41",
+    "title": "OWASP prompt injection",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Layered controls; prompt text alone cannot enforce tool or data permissions."
+  },
+  {
+    "id": "R42",
+    "title": "OWASP uploads",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Validate file types and isolate processing/storage."
+  },
+  {
+    "id": "R43",
+    "title": "DigitalOcean pricing",
+    "url": "https://www.digitalocean.com/pricing/droplets",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Regular Basic 8-vCPU/16-GiB monthly price $96 at retrieval."
+  },
+  {
+    "id": "R44",
+    "title": "Cloudflare R2 pricing",
+    "url": "https://developers.cloudflare.com/r2/pricing/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Standard storage $0.015/GB-month, A $4.50/million, B $0.36/million; free tier excluded from estimates."
+  },
+  {
+    "id": "R45",
+    "title": "Runpod pricing",
+    "url": "https://www.runpod.io/pricing",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Listed RTX 4090 Pod $0.89/hour; inventory and region vary."
+  },
+  {
+    "id": "R46",
+    "title": "Celery tasks",
+    "url": "https://docs.celeryq.dev/en/stable/userguide/tasks.html",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Acks/retries require idempotent task design; broker alone does not ensure exactly-once effects."
+  },
+  {
+    "id": "R47",
+    "title": "Docling",
+    "url": "https://docling-project.github.io/docling/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Document conversion and OCR capabilities; representative files still need fidelity tests."
+  },
+  {
+    "id": "R48",
+    "title": "Docker Compose",
+    "url": "https://docs.docker.com/compose/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Multi-container definition suitable for local and small single-host operation."
+  },
+  {
+    "id": "R49",
+    "title": "Keycloak OIDC",
+    "url": "https://www.keycloak.org/securing-apps/oidc-layers",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "OIDC endpoints for interoperable login."
+  },
+  {
+    "id": "R50",
+    "title": "React versions",
+    "url": "https://react.dev/versions",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Use supported React 19 family; lock exact dependencies in implementation."
+  },
+  {
+    "id": "R51",
+    "title": "Vite requirements",
+    "url": "https://vite.dev/guide/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Check supported Node runtime at lock resolution."
+  },
+  {
+    "id": "R52",
+    "title": "Original RAG paper",
+    "url": "https://arxiv.org/abs/2005.11401",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Retrieval-plus-generation basis, not a guarantee of enterprise grounding."
+  },
+  {
+    "id": "R53",
+    "title": "Lost in the Middle",
+    "url": "https://arxiv.org/abs/2307.03172",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Context placement can affect use of evidence; evaluate packing."
+  },
+  {
+    "id": "R54",
+    "title": "Self-RAG",
+    "url": "https://arxiv.org/abs/2310.11511",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Adaptive retrieval/critique research; not equivalent to a prompt-only retry loop."
+  },
+  {
+    "id": "R55",
+    "title": "Reciprocal rank fusion",
+    "url": "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Rank-based result fusion avoids assuming dense and lexical score comparability."
+  },
+  {
+    "id": "R56",
+    "title": "OpenAI embedding model price",
+    "url": "https://developers.openai.com/api/docs/models/text-embedding-3-small",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "text-embedding-3-small listed $0.02 per million input tokens."
+  },
+  {
+    "id": "R57",
+    "title": "OpenAI embedding dimensions and limits",
+    "url": "https://developers.openai.com/api/docs/guides/embeddings",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Small default1536 dimensions, large3072; guide lists8192 max input. A separate profile/index is required."
+  },
+  {
+    "id": "R58",
+    "title": "Current Qdrant release",
+    "url": "https://github.com/qdrant/qdrant/releases/tag/v1.19.2",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Stable release1.19.2 observed; patch fixes and features are not application conformance."
+  },
+  {
+    "id": "R59",
+    "title": "Qdrant hybrid queries",
+    "url": "https://qdrant.tech/documentation/search/hybrid-queries/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Query API supports dense/sparse and multistage retrieval."
+  },
+  {
+    "id": "R60",
+    "title": "Qdrant BM25",
+    "url": "https://qdrant.tech/documentation/inference/inference-bm25/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "BM25 sparse encodings use Qdrant IDF; local FastEmbed is supported."
+  },
+  {
+    "id": "R61",
+    "title": "LangGraph persistence",
+    "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Checkpointers store thread state; production persistence requires durable backend."
+  },
+  {
+    "id": "R62",
+    "title": "LangGraph interrupts",
+    "url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Resume uses same thread; interrupted node restarts, so effects need idempotency."
+  },
+  {
+    "id": "R63",
+    "title": "Python downloads",
+    "url": "https://www.python.org/downloads/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "3.15.0 released Oct9;3.14.8 current preceding bugfix line."
+  },
+  {
+    "id": "R64",
+    "title": "Node release schedule",
+    "url": "https://nodejs.org/en/about/previous-releases",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Node24 LTS and Node26 Current observed."
+  },
+  {
+    "id": "R65",
+    "title": "uv lock and sync",
+    "url": "https://docs.astral.sh/uv/concepts/projects/sync/",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Locked sync checks lock currency; immutable installs require explicit lock policy."
+  },
+  {
+    "id": "R66",
+    "title": "Qwen3.5-4B",
+    "url": "https://huggingface.co/Qwen/Qwen3.5-4B",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Publisher model card; current challenger requires local artifact/conformance and paired evaluation."
+  },
+  {
+    "id": "R67",
+    "title": "Qwen3 embedding0.6B",
+    "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Publisher model card; current challenger requires local artifact/conformance and paired evaluation."
+  },
+  {
+    "id": "R68",
+    "title": "Qwen3 reranker0.6B",
+    "url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Publisher model card; current challenger requires local artifact/conformance and paired evaluation."
+  },
+  {
+    "id": "R69",
+    "title": "Current Gemini model catalog",
+    "url": "https://ai.google.dev/gemini-api/docs/models",
+    "accessed": "2026-10-10",
+    "status": "opened",
+    "finding": "Gemini3.8 Flash is stable; new projects directed away from access-limited2.5 routes."
+  }
+]
