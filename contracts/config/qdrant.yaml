@@ -1,0 +1,56 @@
+spec_version: 2.0.0
+collection_prefix: ed_bge384_bm25_v1
+point_id: chunk_uuid
+create_collection:
+  vectors:
+    dense:
+      size: 384
+      distance: Cosine
+      on_disk: true
+  sparse_vectors:
+    bm25:
+      modifier: idf
+      index:
+        on_disk: true
+  on_disk_payload: true
+  replication_factor: 1
+  write_consistency_factor: 1
+  strict_mode_config:
+    enabled: true
+    unindexed_filtering_retrieve: false
+    unindexed_filtering_update: false
+    max_query_limit: 100
+payload_indexes:
+- field_name: workspace_id
+  field_schema:
+    type: keyword
+    is_tenant: true
+- field_name: kb_id
+  field_schema: keyword
+- field_name: document_id
+  field_schema: keyword
+- field_name: revision_id
+  field_schema: keyword
+- field_name: profile_id
+  field_schema: keyword
+sparse_encoder:
+  library: fastembed
+  model: Qdrant/bm25
+  language: english
+  k: 1.2
+  b: 0.75
+  avg_len: 256
+  defaults_status: verified_fastembed_0.9.0
+  token_max_length: 40
+  disable_stemmer: false
+write:
+  wait: true
+  ordering: strong
+query:
+  dense_name: dense
+  sparse_name: bm25
+  with_vectors: false
+  with_payload: true
+  timeout_seconds: 3
+  fusion: application_rrf
+  rrf_constant: 60

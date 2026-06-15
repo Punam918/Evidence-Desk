@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parsed application environment (ED_ keys only)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ED_ENV": {
+      "type": "string",
+      "enum": [
+        "development",
+        "test",
+        "production"
+      ]
+    },
+    "ED_PUBLIC_ORIGIN": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ED_DATABASE_URL": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_IDENTITY_DATABASE_URL": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_DISPATCH_DATABASE_URL": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_OIDC_ISSUER": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ED_OIDC_CLIENT_ID": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_OIDC_CLIENT_SECRET_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_SESSION_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_CURSOR_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_S3_ENDPOINT": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ED_S3_REGION": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_S3_BUCKET": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_S3_ACCESS_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_S3_SECRET_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_OPENAI_KEY_FILE": {
+      "type": "string"
+    },
+    "ED_ANTHROPIC_KEY_FILE": {
+      "type": "string"
+    },
+    "ED_GOOGLE_KEY_FILE": {
+      "type": "string"
+    },
+    "ED_LOCAL_MODEL_URL": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ED_LOCAL_MODEL_KEY_FILE": {
+      "type": "string"
+    },
+    "ED_POLICY_CONFIG_PATH": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_MODEL_CONFIG_PATH": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_MODEL_CACHE_PATH": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_OTLP_ENDPOINT": {
+      "type": "string",
+      "format": "uri"
+    },
+    "ED_BACKUP_RECIPIENT": {
+      "type": "string"
+    },
+    "ED_LOG_LEVEL": {
+      "type": "string",
+      "enum": [
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "DEBUG"
+      ]
+    },
+    "ED_QDRANT_URL": {
+      "type": "string",
+      "minLength": 1,
+      "format": "uri"
+    },
+    "ED_QDRANT_READ_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_QDRANT_WRITE_KEY_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_CHECKPOINT_DATABASE_URL": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_QDRANT_CONFIG_PATH": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_METRICS_HOST": {
+      "type": "string",
+      "enum": [
+        "127.0.0.1",
+        "::1",
+        "0.0.0.0"
+      ]
+    },
+    "ED_METRICS_PORT": {
+      "type": "string",
+      "pattern": "^[0-9]{1,5}$"
+    },
+    "ED_METRICS_TOKEN_FILE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_MONITOR_DATABASE_URL": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_PARSER_SOCKET_PATH": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ED_PARSER_SERVICE_LOCK": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "ED_ENV",
+    "ED_PUBLIC_ORIGIN",
+    "ED_DATABASE_URL",
+    "ED_IDENTITY_DATABASE_URL",
+    "ED_DISPATCH_DATABASE_URL",
+    "ED_OIDC_ISSUER",
+    "ED_OIDC_CLIENT_ID",
+    "ED_OIDC_CLIENT_SECRET_FILE",
+    "ED_SESSION_KEY_FILE",
+    "ED_CURSOR_KEY_FILE",
+    "ED_S3_ENDPOINT",
+    "ED_S3_REGION",
+    "ED_S3_BUCKET",
+    "ED_S3_ACCESS_KEY_FILE",
+    "ED_S3_SECRET_KEY_FILE",
+    "ED_POLICY_CONFIG_PATH",
+    "ED_MODEL_CONFIG_PATH",
+    "ED_MODEL_CACHE_PATH",
+    "ED_LOG_LEVEL",
+    "ED_QDRANT_URL",
+    "ED_QDRANT_READ_KEY_FILE",
+    "ED_QDRANT_WRITE_KEY_FILE",
+    "ED_CHECKPOINT_DATABASE_URL",
+    "ED_QDRANT_CONFIG_PATH"
+  ]
+}

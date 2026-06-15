@@ -1,0 +1,423 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "run.accepted"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "queued"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "run.phase"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "enum": [
+                "retrieving",
+                "generating",
+                "validating",
+                "comparing"
+              ]
+            },
+            "degraded": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "maxItems": 10
+            }
+          },
+          "required": [
+            "phase",
+            "degraded"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "answer.delta"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 4096
+            },
+            "draft": {
+              "const": true
+            },
+            "sentence_index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 39
+            }
+          },
+          "required": [
+            "text",
+            "draft",
+            "sentence_index"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "answer.completed"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "message_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "answer": {
+              "$ref": "../schemas/answer.schema.json"
+            },
+            "citations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "evidence_id": {
+                    "type": "string",
+                    "pattern": "^E[1-8]$"
+                  },
+                  "chunk_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "document_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "revision_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  "page_start": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1
+                  },
+                  "heading_path": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "maxItems": 20
+                  },
+                  "available": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "evidence_id",
+                  "chunk_id",
+                  "document_id",
+                  "revision_id",
+                  "title",
+                  "page_start",
+                  "heading_path",
+                  "available"
+                ]
+              },
+              "maxItems": 8
+            }
+          },
+          "required": [
+            "message_id",
+            "answer",
+            "citations"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "run.failed"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "discard_draft": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "code",
+            "retryable",
+            "discard_draft"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "run.cancelled"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reason": {
+              "type": "string",
+              "enum": [
+                "user",
+                "deletion",
+                "policy_change"
+              ]
+            }
+          },
+          "required": [
+            "reason"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "type": {
+          "const": "run.refused"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reason": {
+              "type": "string",
+              "enum": [
+                "provider_refusal"
+              ]
+            }
+          },
+          "required": [
+            "reason"
+          ]
+        }
+      },
+      "required": [
+        "spec_version",
+        "run_id",
+        "seq",
+        "type",
+        "occurred_at",
+        "data"
+      ]
+    }
+  ]
+}

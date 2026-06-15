@@ -1,0 +1,30 @@
+{
+  "runtime_version": "0.40.3",
+  "runtime_image": "ollama/ollama@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+  "upstream_model": "qwen3:8b",
+  "model_id": "evidencedesk-qwen3-8b:500a1f067a9f7826",
+  "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "size_bytes": 5225388164,
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "qwen3",
+    "families": [
+      "qwen3"
+    ],
+    "parameter_size": "8.2B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 40960,
+    "embedding_length": 4096,
+    "runner": "ggml"
+  },
+  "template_sha256": "ae370d884f108d16e7cc8fd5259ebc5773a0afa6e078b11f4ed7e39a27e0dfc4",
+  "license_sha256": "d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "tokenizer_lock": "contracts/config/local-tokenizer.lock.json",
+  "conformance": "synthetic_cpu_smoke_passed_2026-10-11"
+}

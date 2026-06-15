@@ -1,0 +1,12 @@
+{
+  "status": "answered",
+  "sentences": [
+    {
+      "text": "Retry transient 503 responses at most three times.",
+      "citation_ids": [
+        "E1"
+      ]
+    }
+  ],
+  "limitations": []
+}

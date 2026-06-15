@@ -1,0 +1,140 @@
+registry_version: '2'
+status: adapter_contracts_verified_live_readiness_separate
+models:
+- key: paid_standard
+  adapter: openai
+  model_id: gpt-6-luna
+  enabled_after_conformance: true
+  privacy_class: hosted
+  application_context_cap: 16384
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: false
+  resolved_digest: null
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 0.1
+    output: 0.5
+    cached_input: 0.1
+  price_date: '2026-10-10'
+  cache_price_policy: conservative_no_discount_assumed
+  provider_options:
+    reasoning_effort: none
+    store: false
+- key: local_standard
+  adapter: ollama
+  model_id: evidencedesk-qwen3-8b:500a1f067a9f7826
+  enabled_after_conformance: true
+  privacy_class: private
+  application_context_cap: 8192
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: true
+  resolved_digest: 500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 0
+    output: 0
+    cached_input: 0
+  price_date: '2026-10-10'
+  cache_price_policy: conservative_no_discount_assumed
+- key: paid_quality
+  adapter: openai
+  model_id: gpt-6.1-sol
+  enabled_after_conformance: false
+  privacy_class: hosted
+  application_context_cap: 16384
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: false
+  resolved_digest: null
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 2
+    output: 10
+    cached_input: 2
+  price_date: '2026-10-10'
+  cache_price_policy: conservative_no_discount_assumed
+- key: paid_reference
+  adapter: openai
+  model_id: gpt-4.1-mini-2025-04-14
+  enabled_after_conformance: false
+  privacy_class: hosted
+  application_context_cap: 16384
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: false
+  resolved_digest: null
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 0.4
+    output: 1.6
+    cached_input: 0.1
+  price_date: '2026-10-10'
+  cache_price_policy: verified_snapshot
+- key: anthropic_candidate
+  adapter: anthropic
+  model_id: claude-sonnet-5-5
+  enabled_after_conformance: false
+  privacy_class: hosted
+  application_context_cap: 16384
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: false
+  resolved_digest: null
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 2
+    output: 10
+    cached_input: 2
+  price_date: '2026-10-10'
+  cache_price_policy: conservative_no_discount_assumed
+- key: google_candidate
+  adapter: google
+  model_id: gemini-3.8-flash
+  enabled_after_conformance: false
+  privacy_class: hosted
+  application_context_cap: 16384
+  max_output_tokens: 1024
+  requires_probe: true
+  requires_immutable_artifact: false
+  resolved_digest: null
+  capabilities:
+    text: true
+    schema: probe_required
+    native_tools: false
+  prices_usd_per_million:
+    input: 0.75
+    output: 3.75
+    cached_input: 0.75
+  price_date: '2026-10-10'
+  cache_price_policy: conservative_no_discount_assumed
+  price_valid_until: '2026-12-31'
+  price_expiry_policy: disable_until_price_refresh
+  requires_paid_tier: true
+embedding:
+  profile_id: bge_small_en_v15
+  model_id: BAAI/bge-small-en-v1.5
+  revision: 5c38ec7c405ec4b44b94cc5a9bb96e735b38267a
+  dimensions: 384
+  max_tokens: 512
+  normalize: true
+reranker:
+  model_id: cross-encoder/ms-marco-MiniLM-L6-v2
+  revision: 233902d25c440f23af6f7d6e94d2946bac0bee0a
+  max_pair_tokens: 512

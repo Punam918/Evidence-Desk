@@ -1,0 +1,71 @@
+spec_version: 2.0.0
+engine: langgraph
+checkpointer: AsyncPostgresSaver
+checkpoint_schema: lg_checkpoints
+serializer: json_envelope_interrupt_tuple_allowlist_no_pickle
+durability: sync
+recursion_limit: 16
+public_stream: app.run_events_only
+graphs:
+  answer_v1:
+    nodes:
+    - authorize
+    - route
+    - retrieve
+    - context
+    - generate
+    - validate
+    - finalize
+    - abstain
+    - terminalize
+    edges:
+    - - START
+      - authorize
+    - - authorize
+      - route
+    - - route
+      - retrieve
+    - - retrieve
+      - context
+    - - retrieve
+      - abstain
+    - - context
+      - generate
+    - - context
+      - abstain
+    - - generate
+      - validate
+    - - generate
+      - END
+    - - validate
+      - finalize
+    - - abstain
+      - finalize
+    - - finalize
+      - END
+    - - terminalize
+      - END
+    error_target: terminalize
+    interrupts: []
+    thread_scope: run
+  brief_v1:
+    nodes:
+    - prepare
+    - approval
+    - reauthorize
+    - save
+    edges:
+    - - START
+      - prepare
+    - - prepare
+      - approval
+    - - approval
+      - reauthorize
+    - - reauthorize
+      - save
+    - - save
+      - END
+    error_target: business_ledger_terminalization
+    interrupts:
+    - approval
+    thread_scope: tool_execution

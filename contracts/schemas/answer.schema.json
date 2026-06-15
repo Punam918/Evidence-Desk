@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencedesk.invalid/schemas/answer.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "answered",
+        "abstained"
+      ]
+    },
+    "sentences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Sentence"
+      },
+      "maxItems": 40
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 500
+      },
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "status",
+    "sentences",
+    "limitations"
+  ],
+  "$defs": {
+    "Sentence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "citation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^E[1-8]$"
+          },
+          "maxItems": 8,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "text",
+        "citation_ids"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "answered"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sentences": {
+            "minItems": 1,
+            "type": "array"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "abstained"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sentences": {
+            "maxItems": 0,
+            "type": "array"
+          },
+          "limitations": {
+            "minItems": 1,
+            "type": "array"
+          }
+        }
+      }
+    }
+  ]
+}
