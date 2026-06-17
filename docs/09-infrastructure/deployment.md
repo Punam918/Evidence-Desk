@@ -1,0 +1,49 @@
+# Deployment and operations specification
+
+## A. Cost-conscious capstone
+
+Local target: Linux/macOS/Windows with Docker. Initial sizing hypothesis24 GiB RAM,4 CPU; verify disk requirements with all images, model weights, build caches and persistent data before publishing a minimum. The user's2026-10-19 requirement makes local Ollama generation part of the default full local startup, along with PostgreSQL, Qdrant, private local objects, identity, API/workers, embeddings/reranking and frontend/proxy. Hosted generation and telemetry can be optional configurations. Application images are under implementation in [infra/application](../../infra/application/README.md); the integrated Compose stack is still pending. Do not imply `docker compose up` is already sufficient.
+
+Public demo: one 8-vCPU/16-GiB VM with Caddy/API/worker/CPU models/PostgreSQL/Qdrant, private R2 storage, managed OIDC, paid generation. Install no local 8B generator on that host. Public demo uses synthetic corpus and invited users, with $20 monthly API cap and upload quotas. Optional local-model showcase runs from developer workstation or temporary GPU private endpoint, not exposed model server port.
+
+Resource budgets (initial hypotheses): PostgreSQL3 GiB, Qdrant3 GiB, API512 MiB, chat worker768 MiB, ingestion parent512 MiB, parser1 GiB, embedding/rerank2 GiB, proxy/collector1 GiB; roughly11.75 GiB budgeted, remainder OS/headroom on16 GiB. Parser concurrency1; chat5 total but inference CPU queue bounded; memory budget must be verified with all enabled profiles. Keycloak local profile adds memory and is excluded from16-GiB public host sizing.
+
+Container contracts: API command `evidencedesk api`; separate `chat-worker`, `ingest-worker`, `index-worker`, `brief-worker`, `metrics-worker` and scoped lifecycle commands use their actual CLI names. Embedding runs in the bounded ingestion worker; chat uses a separately prewarmed reranker child. Nonroot UID10001, read-only root, writable tmpfs scratch and dropped capabilities. API/chat/web must never receive a Docker socket. Existing ingestion creates constrained no-network parser containers through a trusted operator-only Docker capability; the integrated container deployment must explicitly resolve that boundary without granting it to the API/parser. A subprocess alone without isolation is insufficient. Multi-stage Python3.14 slim builds and Node24 LTS build stage; SPA served as static files by Caddy. Image digests, model artifact digests, lockfiles and SBOM enter release manifest.
+
+## Configuration
+
+Authoritative infrastructure variables in [environment schema](../../contracts/config/environment.schema.json), example values in [.env example](../../contracts/config/environment.example). No unlisted ad hoc environment flags. Typed config validates required conditionals at startup: enabled provider needs its secret; local model enabled needs operator endpoint; prod requires HTTPS origin and nondefault keys. Application policy defaults/models remain YAML immutable config mounted read-only, not duplicated into dozens of env variables.
+
+Networking: only80/443 public, automatic TLS via Caddy; API8080, DB5432, inference8090, Ollama11434, metrics9090 on private container network. Same-origin browser avoids CORS complexity. Host firewall restricts administrative SSH; DB/object admin credentials separate from runtime. Model endpoint allowlist supports private operator endpoint; hosted endpoint must HTTPS and DNS/IP validation. No client-supplied base URL.
+
+Database target `postgres:18.6` and vector service `qdrant/qdrant:v1.19.2` use immutable release digests; documentation probe digests are in validation reports. Resolve deployment platform digests at T01. PostgreSQL18 chosen as supported mature baseline per [support policy](https://www.postgresql.org/support/versioning/). Python3.14, Node24 LTS, React19, Pydantic2, SQLAlchemy2, current compatible FastAPI/Alembic/uv family are selected major lines, **not a verified dependency lock**. T01 resolves patches with package metadata and integration smoke, records exact versions and licenses. Vite runtime prerequisites come from [official guide](https://vite.dev/guide/). Reject unresolved `latest` images in release CI.
+
+## CI/CD and infrastructure as code
+
+PR pipeline: validate specs→Ruff format/lint+strict mypy→TypeScript/ESLint→unit→PostgreSQL/Qdrant/S3/saver integration→adapter scripted streams→frontend Playwright+a11y→security fixtures→build/SBOM/vulnerability scan. Offline deterministic tests run every PR. Retrieval smoke corpus every AI change; full frozen evaluation on release candidate or paid opt-in label with $10 cap. No secrets in fork PRs. Build once, promote image digest, never rebuild differently for staging/prod.
+
+IaC: OpenTofu module for VM, firewall, private object bucket and DNS records; cloud credentials supplied by workload identity/operator secret store. Keep state encrypted remote with locking and separate bootstrap instructions. Design only here; resource creation requires implementation/deployment task and review. Kubernetes omitted in A.
+
+Release: snapshot DB→run forward-compatible migration in one dedicated job→deploy worker/API image with feature flags off→readiness + tenant smoke + one bounded generation→enable admission→monitor15min. If smoke fails, rollback app digest and compatible model/prompt config. Never automatic destructive down migration. Database changes follow expand/contract and tested backup procedures. Maintenance tasks scheduled by one DB lease-holder, not every API replica.
+
+## B. Future production reference
+
+Managed multi-zone PostgreSQL with PITR, ≥2 stateless APIs behind LB, separate chat/ingest pools, private object store, managed identity, collector backend, isolated GPU inference pool where cost justified. Scale ingestion by queue age; chat by active slots/TTFT, not CPU alone; GPU by queue/KV cache utilization. Qdrant uses managed or replicated deployment when HA is required; test read/write consistency and snapshot recovery separately from PostgreSQL. Redis shared rate/cache can be added if DB coordination is a bottleneck; retain DB as business source of truth.
+
+Kubernetes only after multiple deployment pools, node/GPU scheduling and availability requirements justify an operator. Before K8s, evaluate managed containers. Future thresholds are decision triggers, not promised capacities:50 concurrent users,1M chunks,99.9% availability require a new load/DR report. Security/data residency/compliance obligations must be independently scoped before real confidential organization data.
+
+## Runbooks
+
+Start: validate config/secrets→DB/business and saver migrations→Qdrant collection/indexes→objects→index reconciliation→identity→inference warmup→workers→API/proxy→smoke. Stop: stop admission→drain/cancel runs→flush usage→stop workers/API→DB last. Provider outage: inspect breaker/usage, disable affected candidate, verify allowed fallback, preserve privacy. Disk85%: pause uploads and inspect expired artifacts before resizing. Lost host: follow restore in reliability doc. Monthly: verify backup restore/sample checksums, refresh dependency advisories, model deprecations/prices and eval drift.
+
+Local identity networking now follows [ADR024](../adr/024-local-compose-bootstrap-and-identity.md): `evidencedesk.localhost` resolves to loopback in the browser and to Caddy through its Docker network alias. Caddy listens8443, with only127.0.0.1 published, and uses a generated persistent CA/leaf. API verifies that CA and the exact issuer `https://evidencedesk.localhost:8443/identity/realms/evidencedesk`. Keycloak is built with `/identity`; only realm/resource paths are proxied. Browser trust is an explicit local setup step; issuer/TLS verification is never disabled. Public deployments use their own real HTTPS issuer and trusted certificates. Root compose.yaml is under integrated validation; final acceptance and live media remain pending.
+
+## Qdrant and LangGraph operations
+
+Only Caddy is public. Bind PostgreSQL/Qdrant to private Compose network; Qdrant6333/6334 are not host-published in deployment. Separate read/write secrets, TLS between hosts, no anonymous access. Provision payload indexes/strict collection config before workers. Check readiness against manifest generation/count and Qdrant health; API liveness is process-only. Qdrant outage closes retrieval readiness while auth/history may remain available. Do not launch an expensive model call after retrieval dependency failure.
+
+One release migration job runs business Alembic and supported saver setup with respective owner roles; checkpoint runtime uses fixed lg_checkpoints search_path and separate bounded pool. Normal app role cannot read vendor checkpoint tables. No raw framework stream or LangSmith upload enabled. Synchronous checkpoints and advisory-lock connections count in pool capacity: start API pool5+overflow0, chat domain pool5, checkpoint pool5, thread-gate pool5, ingest/maintenance shared pool5; reserve headroom under PostgreSQL max_connections60. Brief waiting holds no connection; simultaneous invocations remain admission-bound.
+
+Upgrade in sequence: backup/snapshot→drain answer graphs→expire or finish incompatible brief threads→forward-compatible saver/business migration→deploy locked worker/API→collection capability and tenant isolation smoke→admit. Rollback requires old graph version compatible with stored checkpoints; never feed old state into renamed nodes. Preserve known-good images/config and side-by-side index generation. All resource numbers require measured load, including sparse indexes and checkpoint I/O.
+
+Maintenance worker dispatches workflow brief-recovery jobs and runs the separately leased index-outbox consumer; waiting approvals consume no active chat slots. Do not expose another public workflow server.
