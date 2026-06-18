@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-21T05:03:09.473Z",
+  "source": "live_local_compose_ui",
+  "origin": "https://evidencedesk.localhost:8443",
+  "real_browser": true,
+  "mocked_routes": false,
+  "browser_https_certificate_errors_ignored": true,
+  "tls_note": "The browser accepts the local development CA. Strict TLS validation is evidenced separately in the linked Compose validation report.",
+  "evidence_report": "docs/10-testing/compose-rag-2026-10-21-attempt5.json",
+  "evidence_report_sha256": "1c7310ecf88c39a8c0a9812701e0e2060101c9face422dbb6efd505a884a0631",
+  "workspace_id": "acce2da4-8913-4fd0-a4ec-0277694b0ae8",
+  "knowledge_base_id": "73766be4-f50b-4b6e-acc5-3ea478acba03",
+  "document_id": "86f4ee80-5d36-430c-9d86-f3f5f088e91a",
+  "conversation_id": "decb990a-5dcf-49f0-9863-e0d98c200cc2",
+  "answer_run_id": "d67a87d3-7524-4e1c-ae58-a01857137637",
+  "images": {
+    "api": "sha256:b5826e9d5eae00ef6eca731147f4a3d09d450d460e7d1d833c46ccea5be7541f",
+    "web": "sha256:e08b57436b65c6810d3cdaaa12d182efd85c1350e2d8c34486a8af157e6d3803",
+    "identity": "sha256:1bad759c6044e4b0d301fd3560a0f764b66421b8bb13e95684a299bac54c2e0f"
+  },
+  "artifacts": [
+    {
+      "type": "screenshot",
+      "file": "01-workspace-home.png",
+      "caption": "The authenticated workspace hub, showing the shared organization context.",
+      "url": "/"
+    },
+    {
+      "type": "screenshot",
+      "file": "02-knowledge-base.png",
+      "caption": "A real published knowledge base and its source-management surface.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/knowledge"
+    },
+    {
+      "type": "screenshot",
+      "file": "03-revision-history.png",
+      "caption": "Immutable source revision history: the revision marked ‘Used for answers’ is the active evidence snapshot.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/documents/86f4ee80-5d36-430c-9d86-f3f5f088e91a"
+    },
+    {
+      "type": "screenshot",
+      "file": "04-grounded-answer.png",
+      "caption": "A completed answer from the local model with an inspectable citation and private-brief control.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/conversations/decb990a-5dcf-49f0-9863-e0d98c200cc2"
+    },
+    {
+      "type": "screenshot",
+      "file": "05-citation-inspection.png",
+      "caption": "Citation inspection retrieves the exact passage and immutable revision referenced by the answer.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/conversations/decb990a-5dcf-49f0-9863-e0d98c200cc2"
+    },
+    {
+      "type": "screenshot",
+      "file": "06-brief-approval.png",
+      "caption": "A private brief is proposed from the completed answer and requires an explicit approval before it can be saved.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/conversations/decb990a-5dcf-49f0-9863-e0d98c200cc2"
+    },
+    {
+      "type": "screenshot",
+      "file": "07-private-brief.png",
+      "caption": "The approved brief is stored in the owner’s private collection with its original cited answer.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/briefs"
+    },
+    {
+      "type": "screenshot",
+      "file": "08-responsive-answer.png",
+      "caption": "The grounded-answer workflow in a phone-sized browser viewport.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/conversations/decb990a-5dcf-49f0-9863-e0d98c200cc2"
+    },
+    {
+      "type": "screenshot",
+      "file": "09-evidence-abstention.png",
+      "caption": "The real no-evidence path abstains and states its limitation instead of inventing an answer.",
+      "url": "/workspaces/acce2da4-8913-4fd0-a4ec-0277694b0ae8/conversations/10f7e5c3-fed3-4de7-a148-e53631d51b20"
+    },
+    {
+      "type": "video",
+      "file": "01-live-evidence-walkthrough.webm",
+      "caption": "Authenticated live walkthrough across the answer, citation inspection, responsive view, and abstention state."
+    }
+  ],
+  "passed": true
+}
