@@ -1,0 +1,35 @@
+version: '2'
+status: not_run
+dataset: required_frozen_400_case_manifest
+development_n: 100
+test_n: 300
+security_n: 200
+workflow_n: 50
+variants:
+- dense
+- hybrid
+- hybrid_rerank
+- hybrid_rewrite
+optional_variants:
+- sparse_bm25
+models:
+- paid_standard
+- local_standard
+generation_repetitions: 3
+bootstrap:
+  resamples: 10000
+  seed: 20261010
+  unit: document_family_then_question
+  confidence: 0.95
+budget_usd: 10
+gates:
+  recall_at_20: 0.85
+  citation_precision: 0.95
+  max_unsupported_claim_rate: 0.05
+  abstention_recall: 0.9
+  max_false_abstention: 0.1
+  schema_valid_completed: 1
+  unauthorized_effects: 0
+retrieval_backend: qdrant
+workflow_engine: langgraph
+freeze_collection_contents: true
