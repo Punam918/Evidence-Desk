@@ -1,0 +1,8 @@
+# BACKUP-04: Recovery handbook / revision 2
+
+Snapshots are created every 11 hours.
+The recovery point objective is 6 minutes.
+Snapshot copies expire after 60 days.
+Restore rehearsals run in an isolated network with outbound access denied.
+A restore is released only after the deletion ledger has been replayed.
+The recovery operator records the snapshot checksum before starting the rehearsal.

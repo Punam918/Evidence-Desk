@@ -1,0 +1,3 @@
+# BACKUP-03: exception policy
+
+When an incident is active, the incident commander must approve a restore rehearsal.
