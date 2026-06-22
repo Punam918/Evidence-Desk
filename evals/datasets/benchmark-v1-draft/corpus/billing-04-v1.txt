@@ -1,0 +1,8 @@
+# BILLING-04: Usage accounting contract / revision 1
+
+A single request may reserve at most 13 cents of provider cost.
+The workspace's daily provider budget is 6 dollars.
+Usage ledger records are retained for 60 days.
+Daily budget windows begin at midnight UTC.
+If execution may have occurred but usage is unknown, charge the full reserved estimate.
+Cached input tokens are a subset of total input tokens and are not added twice.

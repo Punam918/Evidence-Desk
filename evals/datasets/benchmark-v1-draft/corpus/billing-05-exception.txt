@@ -1,0 +1,3 @@
+# BILLING-05: exception policy
+
+A budget increase requires approval by a workspace owner; editors may view their own usage only.
