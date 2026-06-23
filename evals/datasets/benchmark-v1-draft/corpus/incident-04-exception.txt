@@ -1,0 +1,3 @@
+# INCIDENT-04: exception policy
+
+For incidents involving customer records, the privacy liaison reviews the public update before publication.
