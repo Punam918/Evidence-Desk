@@ -1,0 +1,3 @@
+# KEYS-05: exception policy
+
+An emergency rotation requires two distinct security operators to approve the new key identifier.

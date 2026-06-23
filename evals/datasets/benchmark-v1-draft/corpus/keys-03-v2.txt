@@ -1,0 +1,8 @@
+# KEYS-03: Credential rotation procedure / revision 2
+
+Signing credentials rotate every 9 days.
+The old verification key remains accepted for a 5-minute overlap.
+Rotation audit metadata is retained for 50 days.
+The private signing key is mounted from a secret file and never placed in browser configuration.
+After confirmed compromise, revoke the old key immediately and skip the normal overlap.
+Audit events contain the key identifier and action, but never private key bytes.

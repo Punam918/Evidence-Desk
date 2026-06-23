@@ -1,0 +1,8 @@
+# INCIDENT-05: Incident response policy / revision 2
+
+A severity-one alert must be acknowledged within 13 minutes.
+If the primary responder is unavailable, escalate to the secondary after 7 minutes.
+Incident timelines are retained for 70 days.
+The incident commander owns customer-facing status updates.
+Declare recovery only after the error-rate alarm is clear for ten consecutive minutes.
+The post-incident review records contributing conditions without assigning personal blame.
