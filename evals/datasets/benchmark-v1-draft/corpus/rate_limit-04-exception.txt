@@ -1,0 +1,3 @@
+# RATE_LIMIT-04: exception policy
+
+An operator capacity exception may raise a workspace concurrency limit but cannot bypass tenant authorization.

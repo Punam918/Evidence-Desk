@@ -1,0 +1,8 @@
+# RATE_LIMIT-01: Request admission protocol / revision 1
+
+An authenticated actor may submit at most 7 mutation requests per minute.
+At most 3 generation jobs may run concurrently in one workspace.
+Idempotency records remain valid for 30 hours.
+A reused idempotency key with a changed body returns a conflict instead of starting new work.
+Capacity rejection occurs before provider transport or cost reservation.
+Retry-After expresses the earliest safe retry delay in whole seconds.
