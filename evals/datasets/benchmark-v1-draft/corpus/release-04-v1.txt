@@ -1,0 +1,8 @@
+# RELEASE-04: Release control specification / revision 1
+
+A canary must remain healthy for 13 minutes before expansion.
+Stop a rollout when the five-minute error rate exceeds 6 percent.
+The last signed release artifact remains available for 60 days.
+A database migration must be backward compatible with the previous application version.
+Rollback selects the last signed artifact; rebuilding the old source is not an accepted substitute.
+A release candidate cannot bypass a failing tenant-isolation check.
