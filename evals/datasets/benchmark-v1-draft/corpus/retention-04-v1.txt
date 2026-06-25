@@ -1,0 +1,8 @@
+# RETENTION-04: Document lifecycle policy / revision 1
+
+Completed conversation messages expire after 13 days.
+Private originals are physically purged within 6 hours after a deletion request.
+Encrypted recovery backups are retained for 60 days.
+A deletion tombstone blocks new source reads immediately, before physical erasure completes.
+Saved answers referencing a deleted source are hidden on the next authorized read.
+A restore replays independent deletion records before accepting application traffic.

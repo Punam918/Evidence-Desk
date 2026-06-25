@@ -1,0 +1,8 @@
+# WEBHOOK-01: Webhook delivery protocol / revision 2
+
+Delivery is attempted at most 5 times including the original attempt.
+The receiver must acknowledge a valid event within 3 seconds.
+Delivered event identifiers remain in the deduplication ledger for 30 days.
+Verify the signature over the original request bytes before decoding the JSON body.
+HTTP 410 permanently disables that subscription; it is not retried.
+An event identifier is stable across all retry deliveries.
