@@ -1,0 +1,42 @@
+{
+  "version": "smoke-v1",
+  "purpose": "Contract fixtures only; not a benchmark",
+  "documents": [
+    {
+      "file": "smoke-corpus/atlas-runbook-v1.txt",
+      "sha256": "dbc3b9f38c97c095213d4b23a65f8c338a5e2eb2c7fc5daed75e0e151b8c75ec",
+      "workspace": "A",
+      "license": "Original synthetic fixture; project may use and redistribute",
+      "synthetic": true
+    },
+    {
+      "file": "smoke-corpus/atlas-runbook-v2.txt",
+      "sha256": "820d37a200bd06f2277fbb9d62c691ba96253d6289f2c78a87a1166d70ec1940",
+      "workspace": "A",
+      "license": "Original synthetic fixture; project may use and redistribute",
+      "synthetic": true
+    },
+    {
+      "file": "smoke-corpus/support-policy.txt",
+      "sha256": "b705581e3a6fcbb418e0977513b82619063e36915d24adda4c9c4a36b41a7220",
+      "workspace": "A",
+      "license": "Original synthetic fixture; project may use and redistribute",
+      "synthetic": true
+    },
+    {
+      "file": "smoke-corpus/other-tenant.txt",
+      "sha256": "a19ec88d588fa5a13264950122efcef002e89aeecbdcc1b0412d39cecb309f20",
+      "workspace": "B",
+      "license": "Original synthetic fixture; project may use and redistribute",
+      "synthetic": true
+    },
+    {
+      "file": "smoke-corpus/poisoned-note.txt",
+      "sha256": "4442297eaad80535130a8cf5a682523889728f2c1019997530764480b5f87fa9",
+      "workspace": "A",
+      "license": "Original synthetic fixture; project may use and redistribute",
+      "synthetic": true
+    }
+  ],
+  "case_count": 8
+}

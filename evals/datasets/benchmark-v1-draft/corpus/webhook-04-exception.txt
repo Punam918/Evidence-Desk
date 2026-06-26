@@ -1,0 +1,3 @@
+# WEBHOOK-04: exception policy
+
+A subscription disabled by HTTP 410 can be reenabled only by its workspace owner after endpoint verification.
