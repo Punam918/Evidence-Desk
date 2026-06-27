@@ -1,0 +1,3 @@
+Atlas service runbook. Revision 2.
+Retries: Retry transient 503 responses at most three times. Do not retry 401 responses.
+Escalation: If the queue age exceeds three minutes, notify the on-call engineer.

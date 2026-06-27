@@ -1,0 +1,126 @@
+{
+  "scope": "Synthetic memory packing ablation; real frozen tokenizers, zero inference calls",
+  "quality_measured": false,
+  "network_calls": 0,
+  "actual_api_spend_micro_usd": 0,
+  "reviewed_semantic_labels": false,
+  "sources_sha256": {
+    "scripts/measure_memory_packing.py": "656185c8c92aa7f75f350bb1864a849ea24d5e23ba5fefbaaedbf23faf87750a",
+    "apps/api/src/evidencedesk/ai/summary.py": "58efa32feaf53c812148d66bba646a44ff075ab34cf2a786fa1a3e4a602198ce",
+    "contracts/config/models.yaml": "4bb2cdeb0b1ac18f455e932bdd59fa8f64cfb4817c041e6cf058e6665f5ae12d",
+    "contracts/config/model-artifacts.lock.json": "4d56935f42293a7333c6b3ac9b9ea231fb5f0a1b04af4742f5e51a583d32df76",
+    "contracts/config/local-tokenizer.lock.json": "92d50708e7b3736780d7bfcef52ebc9e1091787c9ad3fcd40e27d0e2b0a48af1"
+  },
+  "rows": [
+    {
+      "model_key": "paid_standard",
+      "model_config_sha256": "311a8c8c2485718d5e81730526bf6609b5f2c536891ca447f6566b38ce06656e",
+      "mode": "no_history",
+      "history_pairs": 0,
+      "summary_used": false,
+      "memory_tokens": 0,
+      "full_request_input_tokens": 357,
+      "count_method": "o200k_full_json_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 548
+    },
+    {
+      "model_key": "paid_standard",
+      "model_config_sha256": "311a8c8c2485718d5e81730526bf6609b5f2c536891ca447f6566b38ce06656e",
+      "mode": "recent_six",
+      "history_pairs": 6,
+      "summary_used": false,
+      "memory_tokens": 337,
+      "full_request_input_tokens": 803,
+      "count_method": "o200k_full_json_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 593
+    },
+    {
+      "model_key": "paid_standard",
+      "model_config_sha256": "311a8c8c2485718d5e81730526bf6609b5f2c536891ca447f6566b38ce06656e",
+      "mode": "recent_plus_summary",
+      "history_pairs": 6,
+      "summary_used": true,
+      "memory_tokens": 398,
+      "full_request_input_tokens": 880,
+      "count_method": "o200k_full_json_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 600
+    },
+    {
+      "model_key": "paid_standard",
+      "model_config_sha256": "311a8c8c2485718d5e81730526bf6609b5f2c536891ca447f6566b38ce06656e",
+      "mode": "stale_summary",
+      "history_pairs": 6,
+      "summary_used": false,
+      "memory_tokens": 337,
+      "full_request_input_tokens": 803,
+      "count_method": "o200k_full_json_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 593
+    },
+    {
+      "model_key": "local_standard",
+      "model_config_sha256": "f834ac3f827ccd1fc725a3678c777b183dfa9046898e47c0381cb3f2a712ddec",
+      "mode": "no_history",
+      "history_pairs": 0,
+      "summary_used": false,
+      "memory_tokens": 0,
+      "full_request_input_tokens": 276,
+      "count_method": "qwen_pinned_template_schema_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 0
+    },
+    {
+      "model_key": "local_standard",
+      "model_config_sha256": "f834ac3f827ccd1fc725a3678c777b183dfa9046898e47c0381cb3f2a712ddec",
+      "mode": "recent_six",
+      "history_pairs": 6,
+      "summary_used": false,
+      "memory_tokens": 340,
+      "full_request_input_tokens": 711,
+      "count_method": "qwen_pinned_template_schema_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 0
+    },
+    {
+      "model_key": "local_standard",
+      "model_config_sha256": "f834ac3f827ccd1fc725a3678c777b183dfa9046898e47c0381cb3f2a712ddec",
+      "mode": "recent_plus_summary",
+      "history_pairs": 6,
+      "summary_used": true,
+      "memory_tokens": 420,
+      "full_request_input_tokens": 801,
+      "count_method": "qwen_pinned_template_schema_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 0
+    },
+    {
+      "model_key": "local_standard",
+      "model_config_sha256": "f834ac3f827ccd1fc725a3678c777b183dfa9046898e47c0381cb3f2a712ddec",
+      "mode": "stale_summary",
+      "history_pairs": 6,
+      "summary_used": false,
+      "memory_tokens": 340,
+      "full_request_input_tokens": 711,
+      "count_method": "qwen_pinned_template_schema_plus_20_percent",
+      "input_estimated": true,
+      "fits_context": true,
+      "worst_case_quote_micro_usd": 0
+    }
+  ],
+  "limitations": [
+    "One designed synthetic conversation, no representative quality/latency inference",
+    "Quotes are conservative configured prices, not incurred costs",
+    "Summary text is a designed fixture, not model output",
+    "Serving remains recent-history-only until paired semantic/cost evaluation"
+  ]
+}
