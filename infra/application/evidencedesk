@@ -1,0 +1,6 @@
+#!/opt/venv/bin/python
+"""Container entry point; application source is supplied without an editable build install."""
+
+from evidencedesk.cli import main
+
+main()

@@ -1,0 +1,50 @@
+{
+	admin off
+	auto_https off
+}
+
+http://:8080 {
+	bind 127.0.0.1
+	respond /web-healthz "ok" 200
+}
+
+https://evidencedesk.localhost:8443 {
+	tls /run/tls/tls.crt /run/tls/tls.key
+	root * /srv
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Frame-Options DENY
+		-server
+	}
+	handle /web-healthz {
+		respond "ok" 200
+	}
+	@api path /v1/* /auth/* /health/*
+	handle @api {
+		request_body {
+			max_size 22MB
+		}
+		reverse_proxy api:8080 {
+			flush_interval -1
+		}
+	}
+	# The management console/admin REST API are deliberately not public routes.
+	@identity path /identity/realms/evidencedesk/* /identity/resources/*
+	handle @identity {
+		reverse_proxy identity:8080
+	}
+	handle /identity/* {
+		respond "Not found" 404
+	}
+	handle /assets/* {
+		header Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+	handle {
+		header Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}

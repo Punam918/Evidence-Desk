@@ -1,0 +1,22 @@
+FROM node:24.21.0-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS build
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@10.28.2 --activate
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/web/package.json apps/web/package.json
+COPY packages/api-client/package.json packages/api-client/package.json
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
+COPY apps/web apps/web
+COPY packages/api-client packages/api-client
+RUN pnpm --filter @evidencedesk/web build
+
+FROM caddy:2.11.2-alpine@sha256:834468128c7696cec0ceea6172f7d692daf645ae51983ca76e39da54a97c570d AS runtime
+COPY --from=build /app/apps/web/dist /srv
+COPY infra/application/Caddyfile /etc/caddy/Caddyfile
+COPY infra/application/Caddyfile.local /etc/caddy/Caddyfile.local
+# The inherited file capability would prevent execution with cap-drop=ALL; port8080 needs none.
+RUN setcap -r /usr/bin/caddy && chown -R 10001:10001 /data /config
+USER 10001:10001
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget -q -O /dev/null http://127.0.0.1:8080/web-healthz || exit 1
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

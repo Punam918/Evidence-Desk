@@ -1,0 +1,36 @@
+# Shared nonroot API/worker runtime. The inference extra contains CPU Torch only.
+FROM ghcr.io/astral-sh/uv:0.13.0@sha256:cdc6093146eb3ff6a40107b38f008b789e050e77ad87865e381d9917da55a168 AS uv
+FROM python:3.14.8-slim@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170 AS dependencies
+COPY --from=uv /uv /usr/local/bin/uv
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv UV_PYTHON_DOWNLOADS=never UV_LINK_MODE=copy
+WORKDIR /app
+COPY pyproject.toml uv.lock ./
+COPY apps/api/pyproject.toml apps/api/pyproject.toml
+RUN --mount=type=cache,target=/root/.cache/uv uv sync --locked --all-packages --all-extras --no-dev --no-install-workspace
+
+FROM python:3.14.8-slim@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170 AS runtime
+ENV PATH=/opt/venv/bin:$PATH PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
+    HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1
+WORKDIR /app
+COPY --from=dependencies /opt/venv /opt/venv
+COPY apps/api/src apps/api/src
+COPY apps/api/migrations apps/api/migrations
+COPY alembic.ini ./
+COPY contracts/config contracts/config
+COPY contracts/schemas contracts/schemas
+COPY scripts/setup_checkpoints.py scripts/prepare_models.py scripts/
+COPY infra/bootstrap infra/bootstrap
+COPY infra/parser/image.lock.json infra/parser/image.lock.json
+COPY infra/parser/Dockerfile infra/parser/requirements.txt infra/parser/
+COPY infra/parser/Dockerfile.service infra/parser/service.lock.json infra/parser/
+COPY --chmod=0555 infra/application/evidencedesk /usr/local/bin/evidencedesk
+# Isolated (-I) reranker subprocesses ignore PYTHONPATH; register the immutable source in this venv.
+RUN python -c "from pathlib import Path; Path('/opt/venv/lib/python3.14/site-packages/evidencedesk.pth').write_text('/app/apps/api/src\n')"
+RUN mkdir -p /app/.cache/models && chown 10001:10001 /app/.cache/models
+USER 10001:10001
+EXPOSE 8080
+STOPSIGNAL SIGTERM
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+    CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health/live', timeout=3).close()"]
+ENTRYPOINT ["evidencedesk"]
+CMD ["api", "--host", "0.0.0.0", "--port", "8080"]

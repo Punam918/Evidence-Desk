@@ -1,0 +1,37 @@
+{
+	admin off
+	auto_https off
+}
+
+# Internal web listener. Local/public TLS configuration is supplied by deployment.
+:8080 {
+	root * /srv
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Frame-Options DENY
+		-server
+	}
+	handle /web-healthz {
+		respond "ok" 200
+	}
+	@api path /v1/* /auth/* /health/*
+	handle @api {
+		reverse_proxy {$API_UPSTREAM:api:8080} {
+			flush_interval -1
+		}
+	}
+	handle /identity/* {
+		reverse_proxy {$IDENTITY_UPSTREAM:identity:8080}
+	}
+	handle /assets/* {
+		header Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+	handle {
+		header Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}
