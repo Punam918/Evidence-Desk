@@ -1,0 +1,89 @@
+name: evidencedesk-monitoring
+services:
+  prometheus:
+    restart: unless-stopped
+    read_only: true
+    cap_drop: &id001
+    - ALL
+    security_opt: &id002
+    - no-new-privileges:true
+    pids_limit: 128
+    networks: &id003
+    - monitoring
+    image: prom/prometheus@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
+    user: 65534:65534
+    mem_limit: 512m
+    cpus: 1
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --storage.tsdb.path=/prometheus
+    - --storage.tsdb.retention.time=30d
+    - --storage.tsdb.retention.size=2GB
+    - --web.listen-address=0.0.0.0:9090
+    volumes:
+    - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - ./alerts.yml:/etc/prometheus/alerts.yml:ro
+    - prometheus_data:/prometheus
+    secrets:
+    - metrics_token
+  collector:
+    restart: unless-stopped
+    read_only: true
+    cap_drop: *id001
+    security_opt: *id002
+    pids_limit: 128
+    networks: *id003
+    image: otel/opentelemetry-collector-contrib@sha256:39923a8e431bd1f57be82411999d389fcfe40857492e4365456d97a4c1f74be6
+    user: 10001:10001
+    mem_limit: 192m
+    cpus: 0.5
+    command:
+    - --config=/etc/otelcol/config.yaml
+    volumes:
+    - ./collector.yml:/etc/otelcol/config.yaml:ro
+    tmpfs:
+    - /var/lib/otel:uid=10001,gid=10001,mode=0700,size=96m
+  grafana:
+    restart: unless-stopped
+    read_only: true
+    cap_drop: *id001
+    security_opt: *id002
+    pids_limit: 128
+    networks: *id003
+    image: grafana/grafana@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+    user: 472:472
+    mem_limit: 384m
+    cpus: 0.5
+    ports:
+    - 127.0.0.1:3001:3000
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
+      GF_AUTH_ANONYMOUS_ENABLED: 'false'
+      GF_USERS_ALLOW_SIGN_UP: 'false'
+      GF_ANALYTICS_REPORTING_ENABLED: 'false'
+      GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: 'false'
+      GF_PLUGINS_PREINSTALL_DISABLED: 'true'
+      GF_SERVER_ENFORCE_DOMAIN: 'true'
+      GF_SERVER_DOMAIN: localhost
+      GF_SERVER_ROOT_URL: http://localhost:3001/
+    volumes:
+    - ./provisioning:/etc/grafana/provisioning:ro
+    - ./dashboards:/var/lib/grafana/dashboards:ro
+    - grafana_data:/var/lib/grafana
+    tmpfs:
+    - /tmp:size=32m,mode=1777
+    secrets:
+    - grafana_admin_password
+networks:
+  monitoring:
+    internal: true
+    name: evidencedesk-monitoring
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+secrets:
+  metrics_token:
+    file: ${ED_METRICS_TOKEN_FILE:?Set an absolute mounted metrics token path}
+  grafana_admin_password:
+    file: ${ED_GRAFANA_PASSWORD_FILE:?Set an absolute mounted Grafana password path}

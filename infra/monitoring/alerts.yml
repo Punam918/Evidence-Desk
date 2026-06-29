@@ -1,0 +1,130 @@
+groups:
+- name: evidencedesk
+  rules:
+  - alert: EvidenceDeskScrapeUnavailable
+    expr: up{job="evidencedesk"} == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Private service scrape is unavailable
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskMonitorStale
+    expr: ed_monitor_snapshot_success == 0 or absent(ed_monitor_snapshot_success)
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: Durable aggregate snapshot is unavailable
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskHTTPFailures
+    expr: (sum(increase(ed_http_requests_total{status_class="5xx"}[5m])) / sum(increase(ed_http_requests_total[5m]))
+      > 0.02) and (sum(increase(ed_http_requests_total[5m])) >= 20)
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: API server error fraction exceeds two percent
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskMetadataLatency
+    expr: histogram_quantile(0.95, sum by (le) (rate(ed_http_duration_seconds_bucket{route_template!~".*(events|uploads|original).*"}[5m])))
+      > 0.3
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: Metadata request p95 exceeds 300ms
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskRetrievalLatency
+    expr: histogram_quantile(0.95, sum by (le) (rate(ed_stage_duration_seconds_bucket{stage="retrieval.total"}[5m])))
+      > 1.5
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: Retrieval p95 exceeds 1.5 seconds
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskRetrievalUnavailable
+    expr: sum(increase(ed_stage_duration_seconds_count{stage="retrieval.query",outcome="error"}[5m]))
+      > 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Search index queries are failing
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskCheckpointFailure
+    expr: sum(increase(ed_operational_events_total{event="checkpoint.failure"}[5m]))
+      > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Checkpoint operations are failing
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskCandidateFiltered
+    expr: sum(increase(ed_operational_events_total{event="retrieval.candidate_filtered"}[5m]))
+      > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Candidate payload or authorization mismatch was rejected
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskIngestQueueAge
+    expr: ed_jobs_queue_age_seconds{kind="ingest"} > 300
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Ingest queue is older than five minutes
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskDeadJobs
+    expr: ed_jobs_dead > 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: Dead jobs require investigation
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskIndexUnavailable
+    expr: ed_index_manifest_unavailable > 0 or ed_index_outbox_dead > 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Published index state requires reconciliation
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskOutboxOverdue
+    expr: ed_index_outbox_age_seconds > 86400
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Index outbox is older than 24 hours
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskPurgeOverdue
+    expr: ed_source_purge_age_seconds > 86400
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Deletion purge is older than 24 hours
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskProviderOpen
+    expr: ed_provider_breaker_state == 2
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Provider circuit remains open; browsing should remain available
+      runbook: docs/08-observability/operations.md
+  - alert: EvidenceDeskRecoveryOverdue
+    expr: ed_graph_expired_active > 0 or ed_approval_overdue > 0 or ed_ambiguous_usage_unsettled
+      > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Workflow expiry or uncertain usage requires recovery
+      runbook: docs/08-observability/operations.md

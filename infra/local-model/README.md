@@ -1,0 +1,11 @@
+# Local model profile
+
+The CPU profile uses Ollama0.40.3, Qwen3 8B Q4_K_M, context8192 and one generation slot. Both the runtime image and model digest are pinned in `contracts/config/local-runtime.lock.json`. The native adapter checks the named alias/digest before sending content. Qwen tokenizer and template artifacts are pinned separately; full-template/schema counts include20% headroom and are explicitly estimated because the GGUF template/grammar can differ.
+
+The operator artifact-resolution workflow is `docker pull ollama/ollama:0.40.3`, then `.venv/bin/python scripts/prepare_local_runtime.py`. This resolves the upstream tag, downloads public artifacts, creates an alias containing the digest and updates the lock. Review lock changes before promotion; do not use this resolver as routine startup. The cache stays under ignored `.cache/ollama`; it contains runtime identity files as well as weights, and must not be committed.
+
+After preparation, `.venv/bin/python scripts/probe_local_model.py` measures one synthetic request and removes only its own disposable container. The saved report records result, token usage, first delta, elapsed time and container memory. `docker compose -f infra/local-model/compose.yaml up -d` starts the retained local runtime on loopback11435, using the prepared cache. It never changes an existing11434 host service. `down` stops this project's runtime only. Basic container health is not a model-readiness probe: API admission requires a fresh capability report bound to the current registry configuration.
+
+No GPU is assigned. Cloud inference is disabled. The application has no hosted fallback path for an explicit private model; the shared PostgreSQL advisory slot enforces local concurrency1 across workers. Unknown zero-cost usage remains estimated. Local infrastructure cost is separate from zero API token cost.
+
+Actual smoke evidence is [local-model-smoke.json](../../docs/10-testing/local-model-smoke.json). The measured short request passed, with no OOM. These results do not establish long-context capacity, p95 latency, model quality or a deployment SLO. License: Qwen3 Apache2.0; lock includes the upstream license hash. API mapping follows the official [chat](https://docs.ollama.com/api/chat) and [model inventory](https://docs.ollama.com/api/tags) contracts.
