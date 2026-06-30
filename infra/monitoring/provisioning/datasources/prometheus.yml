@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+- access: proxy
+  editable: false
+  isDefault: true
+  name: EvidenceDesk
+  type: prometheus
+  uid: evidencedesk
+  url: http://prometheus:9090

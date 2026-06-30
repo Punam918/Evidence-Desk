@@ -1,0 +1,19 @@
+{
+  "protocol": 1,
+  "source_sha256": "a3bc65465357ecb183ed2fff3b827e8031f3f0dfe75f4ae5efa59298d044f25b",
+  "files": {
+    "evidencedesk/errors.py": "747937e538d0de9b2a8dd5ecd65eaa5fe439bdc54f7f06162198d9c946431db9",
+    "evidencedesk/ingestion/validation.py": "731a04b17fdf6fc4632a2368350c5ea6d86ff8240a3e5edab9c96cd8fb6faf7f",
+    "evidencedesk/ingestion/normalize.py": "19112c00505a9b30449d825d3073a3cf68d825adadec92cf8d6581f933be4358",
+    "evidencedesk/ingestion/blocks.py": "d0891973ad9ae7eb85a93b403c89d59b3320139e3bf778f21c3c31aa6b2471cc",
+    "evidencedesk/ingestion/sandbox.py": "292b959f91c597ff38917bbb24dac44963bb54d020f74614695b3cd2077585bb",
+    "evidencedesk/ingestion/parsers/core.py": "b4429503f33acf0cf819d95b70a2cb5929ff4ad2c9ad296cd962c2c4a823a7db",
+    "evidencedesk/ingestion/parser_protocol.py": "11b1f1926a381b2d76c9e578bca5ed8b3a03700ee5c56bdc56d9fdc63be257d9",
+    "evidencedesk/ingestion/parser_isolation.py": "0da34101844a0b817037cdf04f35757f23b1f9a5ad437577e81a5a3e2f085f9f",
+    "evidencedesk/ingestion/parser_service_child.py": "bea5a008b7495db0f0073d675463c4f3a82055246ccbb890387717528990e792",
+    "evidencedesk/ingestion/parser_service.py": "fdf598847c6ddb4dff002cf337ed90ac391432dd2d6049b2de4da63075edded6",
+    "evidencedesk/ingestion/parser_client.py": "6995fd1009fb662a7f0f6bc392c9b07b4c8988aa37eea3e22969f58a3f0225d8",
+    "Dockerfile.service": "e8fd93f993c7c3f245acc77182c5216599ffc88b3cfb6ea8a1b6f3893c2e1610",
+    "requirements.txt": "045a566884bf5fdb77287e7c43b0b430f0d0f1bfeb964acadfd95a01cfcdb59c"
+  }
+}

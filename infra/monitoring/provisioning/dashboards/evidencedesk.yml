@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+- allowUiUpdates: false
+  disableDeletion: true
+  folder: EvidenceDesk operations
+  name: EvidenceDesk
+  options:
+    path: /var/lib/grafana/dashboards
+  orgId: 1
+  type: file

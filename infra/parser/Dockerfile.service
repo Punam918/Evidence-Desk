@@ -1,0 +1,15 @@
+# Private Unix-socket supervisor. No Docker daemon/socket, network client or application secrets.
+FROM python:3.14.8-slim@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH=/app/apps/api/src
+COPY infra/parser/requirements.txt /requirements.txt
+RUN pip install --no-cache-dir --require-hashes --only-binary=:all: -r /requirements.txt
+WORKDIR /app
+COPY apps/api/src/evidencedesk/errors.py apps/api/src/evidencedesk/errors.py
+COPY apps/api/src/evidencedesk/ingestion/validation.py apps/api/src/evidencedesk/ingestion/normalize.py apps/api/src/evidencedesk/ingestion/blocks.py apps/api/src/evidencedesk/ingestion/sandbox.py apps/api/src/evidencedesk/ingestion/parser_protocol.py apps/api/src/evidencedesk/ingestion/parser_isolation.py apps/api/src/evidencedesk/ingestion/parser_service_child.py apps/api/src/evidencedesk/ingestion/parser_service.py apps/api/src/evidencedesk/ingestion/parser_client.py apps/api/src/evidencedesk/ingestion/
+COPY apps/api/src/evidencedesk/ingestion/parsers/core.py apps/api/src/evidencedesk/ingestion/parsers/core.py
+COPY infra/parser/Dockerfile.service infra/parser/requirements.txt infra/parser/service.lock.json infra/parser/
+RUN mkdir -p /run/parser && chmod 0755 /run/parser
+USER 0:0
+STOPSIGNAL SIGTERM
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["python", "-m", "evidencedesk.ingestion.parser_service", "--health"]
+ENTRYPOINT ["python", "-m", "evidencedesk.ingestion.parser_service"]

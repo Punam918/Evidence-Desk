@@ -1,0 +1,629 @@
+{
+  "uid": "evidencedesk-operations",
+  "title": "EvidenceDesk operations",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": false,
+  "refresh": "15s",
+  "tags": [
+    "evidencedesk"
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Scrape availability",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "up{job=\"evidencedesk\"}",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Ledger snapshot freshness",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_monitor_snapshot_success",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "API response rate",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (status_class) (rate(ed_http_requests_total[5m]))",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "HTTP p95 by route",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by (le,route_template) (rate(ed_http_duration_seconds_bucket[5m])))",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "Stage p95",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by (le,stage) (rate(ed_stage_duration_seconds_bucket[5m])))",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Queue oldest age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_jobs_queue_age_seconds",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Current dead jobs",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_jobs_dead",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Index outbox age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_index_outbox_age_seconds",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Unavailable index manifests",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_index_manifest_unavailable",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Pending purge oldest age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_source_purge_age_seconds",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Provider breaker (0 closed, 1 half-open, 2 open, 3 disabled)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_provider_breaker_state",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Provider probe age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_provider_probe_age_seconds",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Retained model cost USD (may decrease with retention)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_model_cost_micro_usd / 1000000",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "title": "Retained model tokens",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 48,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_model_tokens",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "title": "Operational events per second",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 56,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (event) (rate(ed_operational_events_total[5m]))",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "title": "Authorized candidate mean",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 56,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (branch) (rate(ed_retrieval_candidates_sum[5m])) / sum by (branch) (rate(ed_retrieval_candidates_count[5m]))",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "title": "Unsettled uncertain attempts",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 64,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_ambiguous_usage_unsettled",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "title": "Overdue approvals",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "evidencedesk"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 64,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ed_approval_overdue",
+          "legendFormat": "{{service}} {{stage}} {{model_key}} {{kind}} {{event}} {{route_template}} {{branch}} {{status_class}} {{direction}} {{estimated}}"
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    }
+  ]
+}

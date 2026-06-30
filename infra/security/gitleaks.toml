@@ -1,0 +1,28 @@
+title = "EvidenceDesk source credential scan"
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated/dependency/private local directories are outside the distributable source scan; deployment secrets are managed separately."
+paths = [
+  '''(^|/)(\.venv|node_modules|\.cache|\.tools|\.git|\.pytest_cache|\.mypy_cache|\.ruff_cache|__pycache__|dist)(/|$)''',
+  '''^artifacts/private/''',
+  '''^infra/secrets/''',
+  '''^docs/10-testing/security/''',
+]
+
+[[allowlists]]
+description = "Public SHA256 artifact hashes in exact tokenizer/model lock fields, not API credentials."
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^contracts/config/(local-tokenizer|model-artifacts)\.lock\.json$''', '''^evals/reports/memory-packing-ablation\.json$''']
+regexTarget = "match"
+regexes = ['''^(special_tokens_map\.json|tokenizer_config\.json|tokenizer\.json|local-tokenizer\.lock\.json)": "[a-f0-9]{64}"$''']
+
+[[allowlists]]
+description = "Two synthetic source identifiers in the generated keys topic scope, not a signing key."
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^evals/datasets/benchmark-v1-draft/cases\.jsonl$''']
+regexTarget = "match"
+regexes = ['''^keys-[0-9]{2}-v2","keys-[0-9]{2}-exception"$''']

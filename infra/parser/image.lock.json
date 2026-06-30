@@ -1,0 +1,16 @@
+{
+  "image_id": "sha256:1bb252b340a879ba4bdb9a1c852db3c76894746951d5d60c1d0f9ae64080a225",
+  "source_sha256": "5d60cf39aa338d24343068ff7147eeb154b927ff686e0c53e3ee9a059578c51d",
+  "files": {
+    "Dockerfile": "fd9bebbdc761bcbb006736ad47a49c48c1a74caa970ef95e3535e297ed8e3a82",
+    "evidencedesk/errors.py": "747937e538d0de9b2a8dd5ecd65eaa5fe439bdc54f7f06162198d9c946431db9",
+    "evidencedesk/ingestion/blocks.py": "d0891973ad9ae7eb85a93b403c89d59b3320139e3bf778f21c3c31aa6b2471cc",
+    "evidencedesk/ingestion/normalize.py": "19112c00505a9b30449d825d3073a3cf68d825adadec92cf8d6581f933be4358",
+    "evidencedesk/ingestion/parser_entry.py": "b623676aec21e17ea13e036e650010eb0a868a2a6dfbf67c6c9186c794c8216f",
+    "evidencedesk/ingestion/parsers/core.py": "b4429503f33acf0cf819d95b70a2cb5929ff4ad2c9ad296cd962c2c4a823a7db",
+    "evidencedesk/ingestion/validation.py": "731a04b17fdf6fc4632a2368350c5ea6d86ff8240a3e5edab9c96cd8fb6faf7f",
+    "requirements.txt": "045a566884bf5fdb77287e7c43b0b430f0d0f1bfeb964acadfd95a01cfcdb59c"
+  },
+  "python": "3.14.8",
+  "parser_version": "parse_v1"
+}

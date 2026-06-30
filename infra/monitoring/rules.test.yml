@@ -1,0 +1,87 @@
+rule_files:
+- alerts.yml
+evaluation_interval: 1m
+tests:
+- name: provider outage requires five minutes
+  interval: 1m
+  input_series:
+  - series: ed_provider_breaker_state{model_key="paid_standard"}
+    values: 2+0x10
+  alert_rule_test:
+  - eval_time: 4m
+    alertname: EvidenceDeskProviderOpen
+    exp_alerts: []
+  - eval_time: 6m
+    alertname: EvidenceDeskProviderOpen
+    exp_alerts:
+    - exp_labels:
+        severity: warning
+        model_key: paid_standard
+      exp_annotations:
+        summary: Provider circuit remains open; browsing should remain available
+        runbook: docs/08-observability/operations.md
+- name: provider disabled is not an outage
+  interval: 1m
+  input_series:
+  - series: ed_provider_breaker_state{model_key="paid_standard"}
+    values: 3+0x10
+  alert_rule_test:
+  - eval_time: 6m
+    alertname: EvidenceDeskProviderOpen
+    exp_alerts: []
+- name: http sustained errors with traffic
+  interval: 1m
+  input_series:
+  - series: ed_http_requests_total{status_class="2xx"}
+    values: 0+10x15
+  - series: ed_http_requests_total{status_class="5xx"}
+    values: 0+1x15
+  alert_rule_test:
+  - eval_time: 4m
+    alertname: EvidenceDeskHTTPFailures
+    exp_alerts: []
+  - eval_time: 10m
+    alertname: EvidenceDeskHTTPFailures
+    exp_alerts:
+    - exp_labels:
+        severity: critical
+      exp_annotations:
+        summary: API server error fraction exceeds two percent
+        runbook: docs/08-observability/operations.md
+- name: low traffic does not fire fraction alert
+  interval: 1m
+  input_series:
+  - series: ed_http_requests_total{status_class="5xx"}
+    values: 0+0.1x15
+  alert_rule_test:
+  - eval_time: 10m
+    alertname: EvidenceDeskHTTPFailures
+    exp_alerts: []
+- name: overdue deletion
+  interval: 1m
+  input_series:
+  - series: ed_source_purge_age_seconds
+    values: 90000+0x5
+  alert_rule_test:
+  - eval_time: 2m
+    alertname: EvidenceDeskPurgeOverdue
+    exp_alerts:
+    - exp_labels:
+        severity: critical
+      exp_annotations:
+        summary: Deletion purge is older than 24 hours
+        runbook: docs/08-observability/operations.md
+- name: monitor absent
+  interval: 1m
+  input_series:
+  - series: up{job="evidencedesk",service="api"}
+    values: 1+0x5
+  alert_rule_test:
+  - eval_time: 2m
+    alertname: EvidenceDeskMonitorStale
+    exp_alerts:
+    - exp_labels:
+        severity: warning
+      exp_annotations:
+        summary: Durable aggregate snapshot is unavailable
+        runbook: docs/08-observability/operations.md
