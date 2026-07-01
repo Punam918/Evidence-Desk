@@ -1,0 +1,22 @@
+{
+  "name": "@evidencedesk/api-client",
+  "private": true,
+  "version": "0.1.0",
+  "types": "schema.d.ts",
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
+  },
+  "exports": {
+    ".": {
+      "types": "./schema.d.ts"
+    },
+    "./events": {
+      "types": "./events.ts"
+    },
+    "./validate-event": {
+      "types": "./validate-event.d.cts",
+      "default": "./validate-event.cjs"
+    }
+  }
+}
