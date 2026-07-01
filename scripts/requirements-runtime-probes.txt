@@ -1,0 +1,6 @@
+# Isolated documentation probes only, not the application lock.
+langgraph==1.2.14
+langgraph-checkpoint-postgres==3.1.2
+psycopg[binary,pool]==3.3.6
+qdrant-client==1.19.1
+PyYAML==6.0.3
